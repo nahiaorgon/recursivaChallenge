@@ -1,4 +1,5 @@
 ﻿using Horoscopo.Core.Business.Interfaces;
+using Horoscopo.Core.Configuration.Interfaces;
 using Horoscopo.Core.Entities;
 using System.Net.Http.Json; 
 
@@ -8,13 +9,14 @@ namespace Horoscopo.Services
     {
         private readonly HttpClient _httpClient; 
         private readonly ISignoBusiness _signoBusiness;
-         
+        private readonly string _baseUrl;
         public SignoServices(HttpClient httpClient,
-                            ISignoBusiness signoBusiness)
+                            ISignoBusiness signoBusiness,
+                            IHoroscopoConfig config)
         {
             _httpClient = httpClient;
             _signoBusiness = signoBusiness;
-
+            _baseUrl = config.ApiUrl;
         }
 
         public async Task<string> ObtenerHoroscopoAsync(string signo)
@@ -29,22 +31,14 @@ namespace Horoscopo.Services
             var json = System.Text.Json.JsonSerializer.Serialize(body);
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            // Eliminamos el charset si es necesario
-            content.Headers.ContentType.CharSet = "";
-
-            var response = await _httpClient.PostAsync("https://newastro.vercel.app/", content);
+            var response = await _httpClient.PostAsync(_baseUrl, content);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<Core.Entities.Horoscopo>();
                 return result?.Prediccion ?? "No se encontró el horóscopo.";
             }
-            else
-            {
-                var errorDetalle = await response.Content.ReadAsStringAsync(); 
-                throw new Exception($"La API devolvió 400. Detalle: {errorDetalle}");
-            }
 
-          //      return "Error al conectar con la API de horóscopos.";
+            return "Error al obtener los datos del horóscopo.";
         }
 
         public int CalcularDiasProximoCumple(DateTime fechaNacimiento)
@@ -113,20 +107,23 @@ namespace Horoscopo.Services
         {
             return await _signoBusiness.HistorialObtenerAsync();
         }
-
-        public async Task<string> ObtenerSignoMasBuscadoAsync()
+         
+        public async Task<object> ObtenerEstadisticasSignoAsync()
         {
             var historial = await _signoBusiness.HistorialObtenerAsync();
-
-            if (!historial.Any()) return "No se encontró historial";
 
             var signoMasBuscado = historial
                 .GroupBy(h => h.Signo)
                 .OrderByDescending(g => g.Count())
-                .Select(g => g.Key)
-                .First();
+                .Select(g => new { Signo = g.Key, Cantidad = g.Count() })
+                .FirstOrDefault();
 
-            return signoMasBuscado;
+            return new
+            {
+                Historial = historial.OrderByDescending(h => h.FechaConsulta).ToList(),
+                SignoFavorito = signoMasBuscado?.Signo ?? "N/A",
+                TotalConsultas = historial.Count
+            };
         }
     }
 }

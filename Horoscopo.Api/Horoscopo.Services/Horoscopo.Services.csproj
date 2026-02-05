@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Horoscopo.Core.Business\Horoscopo.Core.Business.csproj" />
+    <ProjectReference Include="..\Horoscopo.Core.Configuration\Horoscopo.Core.Configuration.csproj" />
     <ProjectReference Include="..\Horoscopo.Core.Entities\Horoscopo.Core.Entities.csproj" />
   </ItemGroup>
 
