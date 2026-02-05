@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Horoscopo.Core.Entities\Horoscopo.Core.Entities.csproj" />
+    <ProjectReference Include="..\Horoscopo.Core.Repository\Horoscopo.Core.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
