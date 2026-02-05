@@ -1,3 +1,5 @@
+using Horoscopo.Core.Business;
+using Horoscopo.Core.Business.Interfaces;
 using Horoscopo.Core.Repository;
 using Horoscopo.Core.Repository.Interfaces;
 using Horoscopo.Services;
@@ -19,9 +21,16 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<ISignoRepository, SignoRepository>(); 
+builder.Services.AddScoped<ISignoRepository, SignoRepository>();
+builder.Services.AddScoped<ISignoBusiness, SignoBusiness>();
 builder.Services.AddScoped<SignoServices>();
-builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<SignoServices>(client =>
+{
+    client.DefaultRequestHeaders.Clear();
+    client.DefaultRequestHeaders.Add("User-Agent", "HttpClientHoroscopo");
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

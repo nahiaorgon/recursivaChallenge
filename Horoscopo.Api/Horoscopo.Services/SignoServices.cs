@@ -26,15 +26,25 @@ namespace Horoscopo.Services
                 sign = signo
             };
 
-            var response = await _httpClient.PostAsJsonAsync("https://newastro.vercel.app", body);
+            var json = System.Text.Json.JsonSerializer.Serialize(body);
+            var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
+            // Eliminamos el charset si es necesario
+            content.Headers.ContentType.CharSet = "";
+
+            var response = await _httpClient.PostAsync("https://newastro.vercel.app/", content);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<Core.Entities.Horoscopo>();
-                return result?.Descripcion ?? "No se encontró el horóscopo.";
+                return result?.Prediccion ?? "No se encontró el horóscopo.";
+            }
+            else
+            {
+                var errorDetalle = await response.Content.ReadAsStringAsync(); 
+                throw new Exception($"La API devolvió 400. Detalle: {errorDetalle}");
             }
 
-            return "Error al conectar con la API de horóscopos.";
+          //      return "Error al conectar con la API de horóscopos.";
         }
 
         public int CalcularDiasProximoCumple(DateTime fechaNacimiento)
@@ -72,29 +82,29 @@ namespace Horoscopo.Services
                 _ => "Desconocido"
             };
         }
-        public async Task<object> ProcesarConsultaCompletaAsync(Consulta consulta)
+        public async Task<Core.Entities.Horoscopo> ProcesarConsultaCompletaAsync(Registro registro)
         {
-            string signo = ObtenerSignoZodiacal(consulta.FechaNacimiento);
-            int diasParaCumple = CalcularDiasProximoCumple(consulta.FechaNacimiento); // REQUISITO 
+            string signo = ObtenerSignoZodiacal(registro.FechaNacimiento);
+            int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento);  
 
             string relato = await ObtenerHoroscopoAsync(signo);
 
             var historial = new Historial
             {
-                Nombre = consulta.Nombre,
-                Email = consulta.Email,
+                Nombre = registro.Nombre,
+                Email = registro.Email,
                 Signo = signo,
                 FechaConsulta = DateTime.Now
             };
 
             bool guardado = await _signoBusiness.HistorialGuardarAsync(historial);
 
-            return new
+            return new Horoscopo.Core.Entities.Horoscopo
             {
-                Nombre = consulta.Nombre,
-                Mensaje = $"Hola {consulta.Nombre}",
+                //Nombre = registro.Nombre,
+               // Mensaje = $"Hola {registro.Nombre}",
                 Signo = signo,
-                Horoscopo = relato,
+                Prediccion = relato,
                 DiasParaCumple = diasParaCumple
             };
         }

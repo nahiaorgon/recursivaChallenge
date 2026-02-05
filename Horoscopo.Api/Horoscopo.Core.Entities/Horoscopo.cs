@@ -1,10 +1,25 @@
-﻿namespace Horoscopo.Core.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Horoscopo.Core.Entities
 {
     public class Horoscopo
-    {
-        public string Date { get; set; } 
-        public string Descripcion { get; set; } //representa el horoscopo del dia
-        public string Icon { get; set; }
-        public string Sign { get; set; } 
+    {  
+            [JsonPropertyName("sign")]
+            public string Signo { get; set; } = string.Empty;
+             
+            [JsonPropertyName("horoscope")]
+            public string Prediccion { get; set; } = string.Empty;
+             
+            [JsonPropertyName("icon")]
+            public string IconoUrl { get; set; } = string.Empty;
+
+            [JsonPropertyName("date")]
+            public string Fecha { get; set; } = string.Empty;
+
+            [JsonPropertyName("id")]
+            public int Id { get; set; }
+             
+            public int DiasParaCumple { get; set; }
+        }
     }
-}
+ 

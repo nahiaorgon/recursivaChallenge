@@ -15,7 +15,7 @@ namespace Horoscopo.Api.Controllers
         }
 
         [HttpPost("consultar")]
-        public async Task<IActionResult> ConsultarHoroscopo([FromBody] Consulta consulta)
+        public async Task<IActionResult> ConsultarHoroscopo([FromBody] Registro consulta)
         {
             if (consulta == null) return BadRequest();
 
