@@ -1,0 +1,12 @@
+﻿@page "/"
+@inject NavigationManager _navigationManager
+
+<div class="pantalla-celular">
+    <div class="contenido-centrado">
+        <img src="images/dama.png" class="logo-principal" alt="Horóscopo Logo" />
+
+        <button class="btn-naranja-redondeado" @onclick='() => _navigationManager.NavigateTo("/seleccion-genero")'>
+            INGRESAR
+        </button>
+    </div>
+</div> 

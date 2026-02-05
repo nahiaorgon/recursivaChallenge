@@ -1,0 +1,56 @@
+﻿@page "/seleccion-genero"
+@using Horoscopo.Core.Entities
+@inject NavigationManager _navigationManager
+@inject DatoRegistro Estado
+
+<div class="pantalla-contenedor">
+    @* Encabezado Azul *@
+    <div class="header-azul">
+        <button class="btn-volver" @onclick='() => _navigationManager.NavigateTo("/")'>←</button>
+        <span class="header-titulo">Tu Género</span>
+    </div>
+
+    <div class="contenido">
+        <div class="progreso-container mb-4">
+            <div class="punto activo"></div>
+            <div class="linea"></div>
+            <div class="punto"></div>
+            <div class="linea"></div>
+            <div class="punto"></div>
+        </div>
+
+        <h2 class="titulo-ingresa">INGRESA TU GÉNERO</h2>
+
+        <div class="iconos-fila">
+            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion1" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Opcion1")'>
+                <img src="images/gen-1.png" alt="Masc" />
+            </div>
+
+            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion2" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Opcion2")'>
+                <img src="images/gen-2.png" alt="NB" />
+            </div>
+
+            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion3" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Opcion3")'>
+                <img src="images/gen-3.png" alt="Fem" />
+            </div>
+        </div>
+
+        <button class="btn-naranja-grande" @onclick="Finalizar">CONTINUAR</button>
+    </div>
+</div>
+
+@code {
+
+    private void Seleccionar(string genero) => Estado.GeneroSeleccionado = genero;
+
+    private void Finalizar()
+    {
+        if (!string.IsNullOrEmpty(Estado.GeneroSeleccionado))
+        {
+            _navigationManager.NavigateTo("/registro");
+        }
+    }
+}

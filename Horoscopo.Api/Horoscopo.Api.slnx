@@ -5,5 +5,6 @@
     <Project Path="Horoscopo.Core.Repository/Horoscopo.Core.Repository.csproj" Id="47ddc411-b810-4dd8-b2fa-f2867b57279d" />
   </Folder>
   <Project Path="Horoscopo.Api/Horoscopo.Api.csproj" />
+  <Project Path="Horoscopo.Client/Horoscopo.Client.csproj" Id="b3a64dc6-d46b-4dab-a888-0c41e4b75adb" />
   <Project Path="Horoscopo.Services/Horoscopo.Services.csproj" />
 </Solution>

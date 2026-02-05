@@ -1,0 +1,219 @@
+﻿@page "/registro"
+@using Horoscopo.Core.Entities
+@inject NavigationManager Nav
+@inject DatoRegistro Estado
+
+<div class="pantalla-contenedor">
+    @* Header Azul Superior *@
+    <div class="header-azul">
+        <button class="btn-volver" @onclick='() => Nav.NavigateTo("/seleccion-genero")'>←</button>
+        <span class="header-titulo">Tus Datos</span>
+    </div>
+
+    <div class="contenido-ajustado">
+        @* Barra de Progreso *@
+        <div class="progreso-bar">
+            <div class="punto azul"></div>
+            <div class="linea azul"></div>
+            <div class="punto azul"></div>
+            <div class="linea"></div>
+            <div class="punto"></div>
+        </div>
+
+        @* Padding extra para separar del progreso *@
+        <h3 class="titulo-celeste">INGRESA TUS DATOS</h3>
+
+        <EditForm Model="@Estado.Datos" OnValidSubmit="VerResultado" class="formulario-flex">
+            <DataAnnotationsValidator />
+
+            @* Sección de Inputs con mayor separación (Padding/Margin) *@
+            <div class="grupo-campos">
+                <div class="fila-input">
+                    <label>Nombre:</label>
+                    <InputText @bind-Value="Estado.Datos.Nombre" class="input-solo-linea" />
+                </div>
+
+                <div class="fila-input">
+                    <label>EMail:</label>
+                    <InputText @bind-Value="Estado.Datos.Email" class="input-solo-linea" />
+                </div>
+
+                <div class="fila-input">
+                    <label>Fecha de Nacimiento:</label>
+                    <div class="input-contenedor-especial">
+                        <InputDate @bind-Value="Estado.Datos.FechaNacimiento" class="input-solo-linea" />
+                        <img src="images/calendar-icon.png" class="icono-calendario-img" alt="cal" />
+                    </div>
+                </div>
+            </div>
+
+            @* Botones: Más alejados, más alargados y menos "gordos" *@
+            <div class="contenedor-botones-final">
+                <button type="button" class="btn-paso btn-azul" @onclick='() => Nav.NavigateTo("/seleccion-genero")'>VOLVER</button>
+                <button type="submit" class="btn-paso btn-naranja">CONTINUAR</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+<style>
+    .pantalla-contenedor {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: white;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header-azul {
+        background-color: #1a5a96;
+        color: white;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .header-titulo {
+        font-weight: bold;
+        margin-left: 15px;
+        font-size: 1.2rem;
+    }
+
+    .btn-volver {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.4rem;
+    }
+
+    .contenido-ajustado {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    /* Separación de la barra de progreso */
+    .progreso-bar {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+
+    /* Padding para alejar el título de los datos */
+    .titulo-celeste {
+        color: #8ea9db;
+        font-weight: bold;
+        font-size: 1.4rem;
+        letter-spacing: 1px;
+        margin-bottom: 60px;
+    }
+
+    .formulario-flex {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    /* Padding para alejar los inputs del título */
+    .grupo-campos {
+        margin-bottom: 80px;
+    }
+
+    /* Distribución: Label izquierda, Input derecha */
+    .fila-input {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 40px;
+        width: 100%;
+    }
+
+        .fila-input label {
+            color: #8ea9db;
+            font-size: 1.1rem;
+            min-width: 150px;
+            text-align: left;
+        }
+
+    .input-solo-linea {
+        border: none;
+        border-bottom: 1px solid #dcdcdc;
+        width: 100%;
+        outline: none;
+        padding: 2px 5px;
+        color: #555;
+        text-align: left;
+    }
+
+    .input-contenedor-especial {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .icono-calendario-img {
+        position: absolute;
+        right: 0;
+        width: 30px;
+        bottom: 5px;
+    }
+
+    /* Botones: Más alejados (Margin), Alargados (Width) y finos (Padding vertical) */
+    .contenedor-botones-final {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 50px;
+        padding: 0 10px;
+    }
+
+    .btn-paso {
+        border: none;
+        padding: 8px 0; /* Menos "gordo" */
+        width: 42%; /* Más alargado horizontalmente */
+        border-radius: 25px;
+        font-weight: bold;
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+
+    .btn-azul {
+        background-color: #1a5a96;
+    }
+
+    .btn-naranja {
+        background-color: #fe6d1a;
+    }
+
+    /* Estilos de puntos de progreso */
+    .punto {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        border: 2px solid #8ea9db;
+    }
+
+        .punto.azul {
+            background-color: #1a5a96;
+            border-color: #1a5a96;
+        }
+
+    .linea {
+        width: 60px;
+        height: 2px;
+        background-color: #8ea9db;
+    }
+
+        .linea.azul {
+            background-color: #1a5a96;
+        }
+</style>
+
+@code {
+    private void VerResultado() => Nav.NavigateTo("/resultado");
+}
