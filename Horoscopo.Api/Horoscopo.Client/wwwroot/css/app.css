@@ -163,33 +163,35 @@ code {
 /*fin - Home*/
 
 /*inicio - genero*/
-.pantalla-contenedor {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: white;
-}
-
 .header-azul {
-    background-color: #1a5a96;
+    background-color: #005fa3;
     color: white;
-    padding: 15px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
-    width: 100%;
+}
+
+.btn-volver-circular {
+    background-color: #004a80;
+    border: none;
+    color: white;
+    width: 35px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    flex-shrink: 0;
 }
 
 .header-titulo {
-    font-weight: bold;
-    margin-left: 20px;
-    font-size: 1.2rem;
-}
-
-.btn-volver {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
+    font-weight: 700;
+    font-size: 1.3rem;
+    font-family: 'Nunito Sans', sans-serif;
+    margin-left: auto;
+    text-align: right;
 }
 
 .contenido {
@@ -197,78 +199,94 @@ code {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 20px;
+    justify-content: space-between; /* Distribuye espacio entre arriba, centro y abajo */
+    padding: 40px 20px 60px 20px;
 }
 
-.titulo-ingresa {
-    color: #8ea9db;
-    font-weight: bold;
-    margin-bottom: 40px;
-}
-
-/* ESTO ES LO QUE ARREGLA TU PROBLEMA */
-.iconos-fila {
-    display: flex; /* Pone los elementos uno al lado del otro */
-    justify-content: space-around; /* Reparte el espacio entre ellos */
+/* Sección superior: Progreso y Título */
+.progreso-seccion {
     width: 100%;
-    max-width: 500px;
-    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.genero-item {
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 50%;
-    transition: all 0.2s ease;
-    border: 3px solid transparent;
-}
-
-    .genero-item img {
-        width: 80px; /* Tamaño de los iconos */
-        height: auto;
-    }
-
-    .genero-item.seleccionado {
-        border-color: #fe6d1a;
-        background-color: #fff3ed;
-        transform: scale(1.1);
-    }
-
-.btn-naranja-grande {
-    background-color: #fe6d1a;
-    color: white;
-    border: none;
-    padding: 12px 60px;
-    border-radius: 25px;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-/* Estilos de la barra de progreso */
 .progreso-container {
     display: flex;
     align-items: center;
+    width: 80%; /* Más estirado */
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.linea {
+    flex-grow: 1; /* Hace que las líneas se estiren */
+    height: 2px;
+    background-color: #8ea9db;
+    max-width: 120px; /* Controla el largo máximo del estiramiento */
 }
 
 .punto {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    border: 2px solid #8ea9db;
+    border: 2px solid #1a5a96;
+    background-color: white;
 }
 
     .punto.activo {
         background-color: #1a5a96;
-        border-color: #1a5a96;
     }
 
-.linea {
-    width: 40px;
-    height: 2px;
-    background-color: #8ea9db;
+.titulo-ingresa {
+    color: #8ea9db;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    font-weight: 800;
 }
+
+/* Logos de Género */
+.iconos-fila {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: -50px; /* Sube los logos para que no queden tan abajo */
+}
+
+.img-genero {
+    width: 110px; /* Más grandes como pediste */
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.genero-item {
+    cursor: pointer;
+    border: 4px solid transparent;
+    border-radius: 20px; /* Suave redondeado si se selecciona */
+    padding: 10px;
+}
+
+    .genero-item.seleccionado {
+        border-color: #fe6d1a;
+        transform: scale(1.1);
+    }
+
+/* Botón Ingresar */
+.btn-naranja-redondeado {
+    background-color: #fe6d1a;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    width: 200px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(254, 109, 26, 0.3);
+}
+
 /*fin - genero*/
+
+
 
 /*inicio - registro*/
 

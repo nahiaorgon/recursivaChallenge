@@ -4,41 +4,48 @@
 @inject Core.Entities.Registro Estado
 
 <div class="pantalla-contenedor">
-    @* Encabezado Azul *@
+    @* Encabezado Azul con diseño mejorado *@
     <div class="header-azul">
-        <button class="btn-volver" @onclick='() => _navigationManager.NavigateTo("/")'>←</button>
+        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/")'>
+            <i class="bi bi-arrow-left"></i> <span>←</span>
+        </button>
         <span class="header-titulo">Tu Género</span>
     </div>
 
     <div class="contenido">
-        <div class="progreso-container mb-4">
-            <div class="punto activo"></div>
-            <div class="linea"></div>
-            <div class="punto"></div>
-            <div class="linea"></div>
-            <div class="punto"></div>
+        @* Barra de progreso más estirada y arriba *@
+        <div class="progreso-seccion">
+            <div class="progreso-container">
+                <div class="punto activo"></div>
+                <div class="linea"></div>
+                <div class="punto"></div>
+                <div class="linea"></div>
+                <div class="punto"></div>
+            </div>
+            <h2 class="titulo-ingresa">INGRESA TU GÉNERO</h2>
         </div>
 
-        <h2 class="titulo-ingresa">INGRESA TU GÉNERO</h2>
-
+        @* Logos de género más grandes *@
         <div class="iconos-fila">
             <div class="genero-item @(Estado.Genero == "Opcion1" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion1")'>
-                <img src="images/gen-1.png" alt="Masc" />
+                <img src="images/gen-1.png" alt="Masc" class="img-genero" />
             </div>
 
             <div class="genero-item @(Estado.Genero == "Opcion2" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion2")'>
-                <img src="images/gen-2.png" alt="NB" />
+                <img src="images/gen-2.png" alt="NB" class="img-genero" />
             </div>
 
             <div class="genero-item @(Estado.Genero == "Opcion3" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion3")'>
-                <img src="images/gen-3.png" alt="Fem" />
+                <img src="images/gen-3.png" alt="Fem" class="img-genero" />
             </div>
         </div>
 
-        <button class="btn-naranja-grande" @onclick="Finalizar">CONTINUAR</button>
+        <button class="btn-naranja-redondeado" @onclick="Finalizar">
+            INGRESAR
+        </button>
     </div>
 </div>
 
