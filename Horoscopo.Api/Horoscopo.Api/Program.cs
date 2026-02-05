@@ -1,5 +1,7 @@
 using Horoscopo.Core.Business;
 using Horoscopo.Core.Business.Interfaces;
+using Horoscopo.Core.Configuration;
+using Horoscopo.Core.Configuration.Interfaces;
 using Horoscopo.Core.Repository;
 using Horoscopo.Core.Repository.Interfaces;
 using Horoscopo.Services;
@@ -20,6 +22,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+var horoscopoConfig = HoroscopoConfig.Build(builder.Configuration);
+builder.Services.AddSingleton<IHoroscopoConfig>(horoscopoConfig);
 
 builder.Services.AddScoped<ISignoRepository, SignoRepository>();
 builder.Services.AddScoped<ISignoBusiness, SignoBusiness>();

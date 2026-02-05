@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Core/">
     <Project Path="Horoscopo.Core.Business/Horoscopo.Core.Business.csproj" Id="1e6daa16-ed3b-4f2a-b618-e7c9eb679667" />
+    <Project Path="Horoscopo.Core.Configuration/Horoscopo.Core.Configuration.csproj" Id="6aa81304-ca4c-4b27-af4c-a19e4b5265bf" />
     <Project Path="Horoscopo.Core.Entities/Horoscopo.Core.Entities.csproj" />
     <Project Path="Horoscopo.Core.Repository/Horoscopo.Core.Repository.csproj" Id="47ddc411-b810-4dd8-b2fa-f2867b57279d" />
   </Folder>

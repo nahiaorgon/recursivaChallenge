@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Horoscopo.Core.Configuration\Horoscopo.Core.Configuration.csproj" />
     <ProjectReference Include="..\Horoscopo.Core.Entities\Horoscopo.Core.Entities.csproj" />
     <ProjectReference Include="..\Horoscopo.Services\Horoscopo.Services.csproj" />
   </ItemGroup>

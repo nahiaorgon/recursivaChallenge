@@ -33,11 +33,11 @@ namespace Horoscopo.Api.Controllers
             return Ok(historial);
         }
 
-        [HttpGet("signo-mas-buscado")]
+        [HttpGet("estadistica/signos")]
         public async Task<IActionResult> GetSignoMasBuscado()
         {
-            var signo = await _signoService.ObtenerSignoMasBuscadoAsync();
-            return Ok(new { signoMasBuscado = signo });
+            var signo = await _signoService.ObtenerEstadisticasSignoAsync();
+            return Ok(signo);
         }
     }
      
