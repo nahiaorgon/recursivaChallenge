@@ -4,7 +4,6 @@
 @inject Core.Entities.Registro Estado
 
 <div class="pantalla-contenedor">
-    @* Encabezado Azul con diseño mejorado *@
     <div class="header-azul">
         <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/")'>
             <i class="bi bi-arrow-left"></i> <span>←</span>
@@ -13,7 +12,6 @@
     </div>
 
     <div class="contenido">
-        @* Barra de progreso más estirada y arriba *@
         <div class="progreso-seccion">
             <div class="progreso-container">
                 <div class="punto activo"></div>
@@ -25,7 +23,6 @@
             <h2 class="titulo-ingresa">INGRESA TU GÉNERO</h2>
         </div>
 
-        @* Logos de género más grandes *@
         <div class="iconos-fila">
             <div class="genero-item @(Estado.Genero == "Opcion1" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion1")'>
@@ -43,7 +40,7 @@
             </div>
         </div>
 
-        <button class="btn-naranja-redondeado" @onclick="Finalizar">
+        <button style="margin-top: 110px;" class="btn-naranja-redondeado" @onclick="Finalizar">
             INGRESAR
         </button>
     </div>
