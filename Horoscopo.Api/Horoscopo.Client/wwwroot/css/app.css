@@ -89,7 +89,6 @@ code {
 }
 
 /*inicio - Home*/
-/* Contenedor que simula la pantalla de un móvil */
 .pantalla-celular {
     display: flex;
     justify-content: center;
@@ -106,29 +105,60 @@ code {
     align-items: center;
     text-align: center;
     width: 100%;
-    max-width: 400px; /* Limita el ancho para que parezca un móvil */
+    max-width: 400px; 
 }
 
 .logo-principal {
-    width: 80%; /* Ajusta según necesites */
+    width: 80%; 
     max-width: 300px;
     margin-bottom: 50px;
+}
+.separador-botones {
+    margin-top: 20px; 
+}
+
+.logo-principal {
+    margin-bottom: 30px;
+    max-width: 200px; 
 }
 
 .btn-naranja-redondeado {
     background-color: #fe6d1a;
     color: white;
     border: none;
-    padding: 15px 80px;
-    border-radius: 30px; /* Hace el botón muy redondeado como en la foto */
-    font-weight: bold;
+    padding: 8px 60px; 
+    border-radius: 15px;
     font-size: 1.1rem;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.2s;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
 }
 
-    .btn-naranja-redondeado:active {
+.btn-naranja-suave {
+    background-color: #ffb38a; 
+    color: white;
+    border: none;
+    padding: 6px 15px; 
+    width: fit-content; 
+    border-radius: 20px;
+    font-size: 0.75rem; 
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    cursor: pointer;
+    white-space: nowrap; 
+}
+
+    .btn-naranja-suave:active {
         transform: scale(0.95);
+        background-color: #fe6d1a;
     }
 /*fin - Home*/
 

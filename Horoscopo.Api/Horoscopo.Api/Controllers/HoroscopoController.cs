@@ -1,5 +1,5 @@
 ﻿using Horoscopo.Core.Entities;
-using Horoscopo.Services;
+using Horoscopo.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Horoscopo.Api.Controllers
@@ -8,8 +8,8 @@ namespace Horoscopo.Api.Controllers
     [Route("api/[controller]")]
     public class HoroscopoController : ControllerBase
     {
-        private readonly SignoServices _signoService;
-        public HoroscopoController(SignoServices signoService)
+        private readonly ISignoServices _signoService;
+        public HoroscopoController(ISignoServices signoService)
         {
             _signoService = signoService;
         }

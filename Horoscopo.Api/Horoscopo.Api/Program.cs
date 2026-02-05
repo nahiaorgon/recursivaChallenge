@@ -5,6 +5,7 @@ using Horoscopo.Core.Configuration.Interfaces;
 using Horoscopo.Core.Repository;
 using Horoscopo.Core.Repository.Interfaces;
 using Horoscopo.Services;
+using Horoscopo.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,7 +29,7 @@ builder.Services.AddSingleton<IHoroscopoConfig>(horoscopoConfig);
 
 builder.Services.AddScoped<ISignoRepository, SignoRepository>();
 builder.Services.AddScoped<ISignoBusiness, SignoBusiness>();
-builder.Services.AddScoped<SignoServices>();
+builder.Services.AddScoped<ISignoServices, SignoServices>();
 
 builder.Services.AddHttpClient<SignoServices>(client =>
 {

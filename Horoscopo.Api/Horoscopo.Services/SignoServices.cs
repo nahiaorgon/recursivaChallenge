@@ -1,11 +1,12 @@
 ﻿using Horoscopo.Core.Business.Interfaces;
 using Horoscopo.Core.Configuration.Interfaces;
 using Horoscopo.Core.Entities;
+using Horoscopo.Services.Interfaces;
 using System.Net.Http.Json; 
 
 namespace Horoscopo.Services
 {
-    public class SignoServices
+    public class SignoServices : ISignoServices
     {
         private readonly HttpClient _httpClient; 
         private readonly ISignoBusiness _signoBusiness;
@@ -108,7 +109,7 @@ namespace Horoscopo.Services
             return await _signoBusiness.HistorialObtenerAsync();
         }
          
-        public async Task<object> ObtenerEstadisticasSignoAsync()
+        public async Task<Estadistica> ObtenerEstadisticasSignoAsync()
         {
             var historial = await _signoBusiness.HistorialObtenerAsync();
 
@@ -118,7 +119,7 @@ namespace Horoscopo.Services
                 .Select(g => new { Signo = g.Key, Cantidad = g.Count() })
                 .FirstOrDefault();
 
-            return new
+            return new Estadistica
             {
                 Historial = historial.OrderByDescending(h => h.FechaConsulta).ToList(),
                 SignoFavorito = signoMasBuscado?.Signo ?? "N/A",
