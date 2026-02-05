@@ -40,21 +40,36 @@
             </div>
         </div>
 
-        <button style="margin-top: 110px;" class="btn-naranja-redondeado" @onclick="Finalizar">
-            INGRESAR
-        </button>
+        <div class="boton-contenedor">
+            <button class="btn-naranja-redondeado" @onclick="Finalizar">
+                INGRESAR
+            </button>
+
+            <p class="mensaje-error @(mostrarValidacion ? "visible" : "")">
+                Por favor, selecciona una opción para continuar
+            </p>
+        </div>
     </div>
 </div>
 
 @code {
+    private bool mostrarValidacion = false;
 
-    private void Seleccionar(string genero) => Estado.Genero = genero;
+    private void Seleccionar(string genero)
+    {
+        Estado.Genero = genero;
+        mostrarValidacion = false;  
+    }
 
     private void Finalizar()
     {
         if (!string.IsNullOrEmpty(Estado.Genero))
         {
             _navigationManager.NavigateTo("/registro");
+        }
+        else
+        {
+            mostrarValidacion = true;  
         }
     }
 }

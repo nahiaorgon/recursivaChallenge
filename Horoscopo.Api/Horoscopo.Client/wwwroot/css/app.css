@@ -128,9 +128,7 @@ code {
     border: none;
     padding: 8px 60px; 
     border-radius: 15px;
-    font-size: 1.1rem;
     font-family: 'Nunito Sans', sans-serif;
-    font-weight: 700;
     text-transform: uppercase;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.2s;
@@ -261,15 +259,37 @@ code {
 .genero-item {
     cursor: pointer;
     border: 4px solid transparent;
-    border-radius: 20px; 
-    padding: 10px;
+    border-radius: 40px; 
 }
 
 .genero-item.seleccionado {
     border-color: #fe6d1a;
     transform: scale(1.1);
 }
-     
+
+
+.boton-contenedor {
+    margin-top: 110px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.mensaje-error {
+    color: #ffb38a;  
+    font-size: 0.85rem;
+    margin-top: 10px;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;  
+}
+
+.mensaje-error.visible {
+    opacity: 1;
+}
+      
 /*fin - genero*/
 
 
