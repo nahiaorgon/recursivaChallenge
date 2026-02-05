@@ -1,0 +1,149 @@
+﻿@page "/estadisticas"
+@using Horoscopo.Core.Entities
+@inject HttpClient Http
+@inject NavigationManager Nav
+
+<div class="pantalla-contenedor">
+    <div class="header-azul">
+        <button class="btn-circular-volver" @onclick='() => Nav.NavigateTo("/")'>
+            <span class="oi oi-home"></span>
+        </button>
+        <span class="header-titulo">Estadísticas e Historial</span>
+    </div>
+
+    <div class="contenido-scroll">
+        @if (_estadistica is null)
+        {
+            <p class="text-center mt-5">Cargando historial...</p>
+        }
+        else
+        {
+            @* Tarjeta de Resumen *@
+            <div class="card-stats mb-4">
+                <div class="stat-item">
+                    <span class="stat-label">SIGNO MÁS BUSCADO</span>
+                    <span class="stat-value">@_estadistica?.SignoFavorito.ToUpper()</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-label">TOTAL CONSULTAS</span>
+                    <span class="stat-value">@_estadistica?.TotalConsultas</span>
+                </div>
+            </div>
+
+            <h5 class="titulo-seccion mb-3">Últimas Consultas</h5>
+
+            @* Tabla de Historial *@
+            <div class="tabla-contenedor">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Signo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (_estadistica?.Historial?.Any() == true)
+                        {
+                            @foreach (var item in _estadistica.Historial)
+                            {
+                                <tr>
+                                    <td>@item.Nombre</td>
+                                    <td>
+                                        <img src="images/boton_@(item.Signo.ToLower()).png" class="mini-signo" />
+                                        @item.Signo
+                                    </td>
+                                    <td class="fecha-col">@item.FechaConsulta.ToShortDateString()</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .pantalla-contenedor {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: #f8f9fa;
+    }
+
+    .contenido-scroll {
+        flex-grow: 1;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Tarjeta de Signo más buscado */
+    .card-stats {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        border-left: 5px solid #fe6d1a;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-label {
+        display: block;
+        font-size: 0.7rem;
+        color: #888;
+        font-weight: bold;
+    }
+
+    .stat-value {
+        font-size: 1.2rem;
+        color: #1a5a96;
+        font-weight: bold;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 40px;
+        background: #eee;
+    }
+
+    .titulo-seccion {
+        color: #1a5a96;
+        font-weight: bold;
+        padding-left: 5px;
+    }
+
+    .tabla-contenedor {
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .mini-signo {
+        width: 20px;
+        margin-right: 8px;
+    }
+
+    .fecha-col {
+        color: #999;
+        font-size: 0.85rem;
+    }
+</style>
+
+@code {
+    private Estadistica? _estadistica;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _estadistica = await Http.GetFromJsonAsync<Estadistica>("api/horoscopo/estadistica/signos");
+    }
+     
+}
