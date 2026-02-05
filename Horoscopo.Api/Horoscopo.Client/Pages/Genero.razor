@@ -1,7 +1,7 @@
 ﻿@page "/seleccion-genero"
 @using Horoscopo.Core.Entities
 @inject NavigationManager _navigationManager
-@inject DatoRegistro Estado
+@inject Core.Entities.Registro Estado
 
 <div class="pantalla-contenedor">
     @* Encabezado Azul *@
@@ -22,17 +22,17 @@
         <h2 class="titulo-ingresa">INGRESA TU GÉNERO</h2>
 
         <div class="iconos-fila">
-            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion1" ? "seleccionado" : "")"
+            <div class="genero-item @(Estado.Genero == "Opcion1" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion1")'>
                 <img src="images/gen-1.png" alt="Masc" />
             </div>
 
-            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion2" ? "seleccionado" : "")"
+            <div class="genero-item @(Estado.Genero == "Opcion2" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion2")'>
                 <img src="images/gen-2.png" alt="NB" />
             </div>
 
-            <div class="genero-item @(Estado.GeneroSeleccionado == "Opcion3" ? "seleccionado" : "")"
+            <div class="genero-item @(Estado.Genero == "Opcion3" ? "seleccionado" : "")"
                  @onclick='() => Seleccionar("Opcion3")'>
                 <img src="images/gen-3.png" alt="Fem" />
             </div>
@@ -44,11 +44,11 @@
 
 @code {
 
-    private void Seleccionar(string genero) => Estado.GeneroSeleccionado = genero;
+    private void Seleccionar(string genero) => Estado.Genero = genero;
 
     private void Finalizar()
     {
-        if (!string.IsNullOrEmpty(Estado.GeneroSeleccionado))
+        if (!string.IsNullOrEmpty(Estado.Genero))
         {
             _navigationManager.NavigateTo("/registro");
         }

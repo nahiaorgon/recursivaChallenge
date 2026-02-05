@@ -1,7 +1,7 @@
 ﻿@page "/registro"
 @using Horoscopo.Core.Entities
 @inject NavigationManager Nav
-@inject DatoRegistro Estado
+@inject Core.Entities.Registro Estado
 
 <div class="pantalla-contenedor">
     @* Header Azul Superior *@
@@ -23,25 +23,25 @@
         @* Padding extra para separar del progreso *@
         <h3 class="titulo-celeste">INGRESA TUS DATOS</h3>
 
-        <EditForm Model="@Estado.Datos" OnValidSubmit="VerResultado" class="formulario-flex">
+        <EditForm Model="@Estado" OnValidSubmit="VerResultado" class="formulario-flex">
             <DataAnnotationsValidator />
 
             @* Sección de Inputs con mayor separación (Padding/Margin) *@
             <div class="grupo-campos">
                 <div class="fila-input">
                     <label>Nombre:</label>
-                    <InputText @bind-Value="Estado.Datos.Nombre" class="input-solo-linea" />
+                    <InputText @bind-Value="Estado.Nombre" class="input-solo-linea" />
                 </div>
 
                 <div class="fila-input">
                     <label>EMail:</label>
-                    <InputText @bind-Value="Estado.Datos.Email" class="input-solo-linea" />
+                    <InputText @bind-Value="Estado.Email" class="input-solo-linea" />
                 </div>
 
                 <div class="fila-input">
                     <label>Fecha de Nacimiento:</label>
                     <div class="input-contenedor-especial">
-                        <InputDate @bind-Value="Estado.Datos.FechaNacimiento" class="input-solo-linea" />
+                        <InputDate @bind-Value="Estado.FechaNacimiento" class="input-solo-linea" />
                         <img src="images/calendar-icon.png" class="icono-calendario-img" alt="cal" />
                     </div>
                 </div>

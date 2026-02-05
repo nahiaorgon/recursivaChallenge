@@ -1,0 +1,211 @@
+﻿@page "/resultado"
+@using Horoscopo.Core.Entities
+@inject HttpClient Http
+@inject Core.Entities.Registro Estado
+@inject NavigationManager Nav
+
+<div class="pantalla-contenedor">
+    @* Header Azul: Título centrado y botón de volver circular *@
+    <div class="header-azul">
+        <button class="btn-circular-volver" @onclick='() => Nav.NavigateTo("/registro")'>
+            <span class="oi oi-arrow-left"></span>
+        </button>
+        <span class="header-titulo">Tu Horóscopo</span>
+    </div>
+
+    <div class="contenido-ajustado">
+        @if (cargando)
+        {
+            <div class="spinner-container">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-3">Consultando los astros para @Estado.Nombre...</p>
+            </div>
+        }
+        else if (error)
+        {
+            <div class="error-container">
+                <p class="text-danger">No pudimos obtener tu horóscopo. Revisa la conexión con la API.</p>
+                <button class="btn-naranja-final" @onclick='() => Nav.NavigateTo("/registro")'>REINTENTAR</button>
+            </div>
+        }
+        else
+        {
+            @* BLOQUE DINÁMICO: Imagen y Nombre del Signo *@
+            <div class="bloque-signo mb-5">
+                <img src="images/@(resultadoApi?.Signo.ToLower()).png"
+                     class="img-signo-decor"
+                     alt="Icono @resultadoApi?.Signo" />
+                <h1 class="texto-signo-nombre">@resultadoApi?.Signo.ToUpper()</h1>
+            </div>
+
+            @* Saludo personalizado *@
+            <h4 class="hola-usuario mb-4">Hola @Estado.Nombre.ToUpper()!</h4>
+
+            @* Párrafo del horóscopo: Centrado y con buen espaciado *@
+            <div class="contenedor-prediccion">
+                <p class="texto-prediccion">
+                    Tu horóscopo para hoy dice que @resultadoApi?.Prediccion
+                </p>
+            </div>
+
+            @* Días para el cumpleaños *@
+            <div class="bloque-cumple mt-auto">
+                <p class="texto-cumple">
+                    Faltan <strong>@resultadoApi?.DiasParaCumple</strong> días para tu cumpleaños.
+                </p>
+            </div>
+
+            @* Botón naranja alargado inferior *@
+            <button class="btn-naranja-final mt-4" @onclick='() => Nav.NavigateTo("/")'>
+                CONTINUAR
+            </button>
+        }
+    </div>
+</div>
+
+<style>
+    /* Contenedor principal estilo móvil */
+    .pantalla-contenedor {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        background: white;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Header idéntico a screen-02/03 */
+    .header-azul {
+        background-color: #1a5a96;
+        color: white;
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+
+    .btn-circular-volver {
+        position: absolute;
+        left: 15px;
+        background: rgba(255,255,255,0.2);
+        border: none;
+        color: white;
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .header-titulo {
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .contenido-ajustado {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 30px;
+        text-align: center;
+    }
+
+    /* Estilo del Signo (Rosa/Rojo como en la imagen) */
+    .bloque-signo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .texto-signo-nombre {
+        color: #ff4d6d;
+        font-weight: bold;
+        font-size: 3rem;
+        margin: 0;
+        letter-spacing: -1px;
+    }
+
+    .img-signo-decor {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+    }
+
+    .hola-usuario {
+        font-weight: 500;
+        color: #333;
+        font-size: 1.3rem;
+    }
+
+    /* Predicción */
+    .contenedor-prediccion {
+        max-width: 340px;
+        line-height: 1.5;
+        margin-bottom: 30px;
+    }
+
+    .texto-prediccion {
+        font-size: 1.15rem;
+        color: #444;
+    }
+
+    /* Días para el cumple */
+    .texto-cumple {
+        font-size: 1.2rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Botón CONTINUAR */
+    .btn-naranja-final {
+        background-color: #fe6d1a;
+        color: white;
+        border: none;
+        padding: 10px 0;
+        width: 100%;
+        max-width: 320px;
+        border-radius: 25px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .spinner-container {
+        margin-top: 100px;
+    }
+</style>
+
+@code {
+    private bool cargando = true;
+    private bool error = false;
+    private Horoscopo? resultadoApi;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync("api/horoscopo/consultar", Estado);
+
+            if (response.IsSuccessStatusCode)
+            {
+                resultadoApi = await response.Content.ReadFromJsonAsync<Horoscopo>();
+            }
+            else
+            {
+                error = true;
+            }
+        }
+        catch
+        {
+            error = true;
+        }
+        finally
+        {
+            cargando = false;
+        }
+    }
+
+}
