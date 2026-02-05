@@ -79,8 +79,8 @@ namespace Horoscopo.Services
         }
         public async Task<Core.Entities.Horoscopo> ProcesarConsultaCompletaAsync(Registro registro)
         {
-            string signo = ObtenerSignoZodiacal(registro.FechaNacimiento);
-            int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento);  
+            string signo = ObtenerSignoZodiacal(registro.FechaNacimiento.Value);
+            int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento.Value);  
 
             string relato = await ObtenerHoroscopoAsync(signo);
 

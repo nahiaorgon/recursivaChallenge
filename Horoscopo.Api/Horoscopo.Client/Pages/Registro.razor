@@ -24,52 +24,80 @@
         <h3 class="titulo-ingresa">INGRESA TUS DATOS</h3>
         </div>
 
-        <EditForm Model="@Estado" OnValidSubmit="VerResultado" class="formulario-datos">
+        <EditForm Model="@Estado" OnValidSubmit="ProcesarFormulario" OnInvalidSubmit="Validador" class="formulario-datos">
             <DataAnnotationsValidator />
 
             <div class="grupo-campos">
                 <div class="fila-input">
                     <label>Nombre:</label>
-                    <InputText @bind-Value="Estado.Nombre" class="input-linea-unica" />
+                    <InputText @bind-Value="Estado.Nombre" class="input-linea-unica" @oninput="OcultarError" />
                 </div>
 
                 <div class="fila-input">
                     <label>Correo:</label>
-                    <InputText @bind-Value="Estado.Email" class="input-linea-unica" />
+                    <InputText @bind-Value="Estado.Email" class="input-linea-unica" @oninput="OcultarError" />
                 </div>
 
                 <div class="fila-input">
                     <label>Fecha de Nacimiento:</label>
-                    <div class="contenedor-fecha">
-                        <InputDate @bind-Value="Estado.FechaNacimiento" class="input-linea-unica" />
-                        <img src="images/calendario.png" class="icono-calendario" alt="calendario" />
+                    <div class="contenedor-input-icono">
+                        <InputDate @bind-Value="Estado.FechaNacimiento"
+                                   class="input-linea-unica"
+                                   max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                   @oninput="OcultarError" />
+
+                        <img src="images/calendario.png" class="icono-calendario" alt="calendario" style="pointer-events: none;" />
                     </div>
                 </div>
-            </div> 
+            </div>
 
-            <div class="fila-botones" style="margin-top: 90px;">
+            <div class="fila-botones">
                 <button type="button" class="btn-azul-redondeado" @onclick='() => _navigationManager.NavigateTo("/seleccion-genero")'>
                     VOLVER
                 </button>
-                <button type="submit" style="padding: 8px 40px;" class="btn-naranja-redondeado">
+                <button type="submit" class="btn-naranja-redondeado">
                     CONTINUAR
                 </button>
             </div>
-        </EditForm>
-@* 
-            <div class="boton-contenedor">
-                <button class="btn-naranja-redondeado" @onclick="Finalizar">
-                    CONTINUAR
-                </button>
 
-                <p class="mensaje-error @(mostrarValidacion ? "visible" : "")">
-                    Por favor, selecciona una opción para continuar
-                </p>
-            </div> *@ 
+            <p class="mensaje-error-form @(_mostrarError ? "visible" : "")">
+                @_mensajeError
+            </p>
+        </EditForm>
+ 
     </div>
 </div>
 
 
 @code {
-    private void VerResultado() => _navigationManager.NavigateTo("/resultado");
+    private bool _mostrarError = false;
+    private string _mensajeError = "";
+
+    private void OcultarError() => _mostrarError = false;
+
+    private void ProcesarFormulario()
+    {
+        _mostrarError = false;
+        _navigationManager.NavigateTo("/resultado");
+    }
+
+    private void Validador()
+    {
+        if (string.IsNullOrWhiteSpace(Estado.Nombre) 
+        || Estado.FechaNacimiento == null)
+        {
+            _mensajeError = "Por favor, completa tu nombre y/o fecha de nacimiento.";
+            _mostrarError = true;
+            return;
+        }
+
+        if (Estado.FechaNacimiento > DateTime.Today)
+        {
+            _mensajeError = "La fecha de nacimiento no puede ser mayor a hoy.";
+            _mostrarError = true;
+            return;
+        }
+
+        ProcesarFormulario();
+    }
 }
