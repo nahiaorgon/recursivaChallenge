@@ -24,18 +24,18 @@
         </div>
 
         <div class="iconos-fila">
-            <div class="genero-item @(Estado.Genero == "Opcion1" ? "seleccionado" : "")"
-                 @onclick='() => Seleccionar("Opcion1")'>
+            <div class="genero-item @(Estado.Genero == "Masculino" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Masculino")'>
                 <img src="images/gen-1.png" alt="Masc" class="img-genero" />
             </div>
 
-            <div class="genero-item @(Estado.Genero == "Opcion2" ? "seleccionado" : "")"
-                 @onclick='() => Seleccionar("Opcion2")'>
+            <div class="genero-item @(Estado.Genero == "Binario" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Binario")'>
                 <img src="images/gen-2.png" alt="NB" class="img-genero" />
             </div>
 
-            <div class="genero-item @(Estado.Genero == "Opcion3" ? "seleccionado" : "")"
-                 @onclick='() => Seleccionar("Opcion3")'>
+            <div class="genero-item @(Estado.Genero == "Femenino" ? "seleccionado" : "")"
+                 @onclick='() => Seleccionar("Femenino")'>
                 <img src="images/gen-3.png" alt="Fem" class="img-genero" />
             </div>
         </div>

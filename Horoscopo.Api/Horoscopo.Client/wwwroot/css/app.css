@@ -464,6 +464,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #555;
     line-height: 1.6;
     font-style: italic;
+    text-align:center;
 }
 /*fin - resultado*/
 
@@ -640,6 +641,22 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 1px;
     height: 40px;
     background: #eee;
+}
+
+.genero-bar {
+    background: linear-gradient(90deg, #fe6d1a, #f7b731) !important;
+}
+
+.bi-gender-male {
+    color: #2196F3;
+}
+
+.bi-gender-female {
+    color: #E91E63;
+}
+ 
+.mr-2 {
+    margin-right: 8px;
 }
 
 /*fin - estadisticas*/

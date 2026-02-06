@@ -37,6 +37,10 @@ namespace Horoscopo.Core.Repository.Migrations
                     b.Property<DateTime>("FechaConsulta")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

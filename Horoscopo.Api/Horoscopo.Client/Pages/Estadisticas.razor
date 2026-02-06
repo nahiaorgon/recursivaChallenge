@@ -1,22 +1,24 @@
 ﻿@page "/estadisticas"
+
 @using Horoscopo.Core.Entities
 @inject HttpClient _http
 @inject NavigationManager _navigationManager
 
 <div class="pantalla-contenedor">
     <div class="header-azul">
-        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/")'>
+        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/resultado")'>
             <span>←</span>
         </button>
         <span class="header-titulo">Estadísticas de Astros</span>
     </div>
 
     <div class="contenido-scroll">
-        @if (_stats == null)
-        {
-            <div class="text-center mt-5">
-                <div class="spinner-border text-primary" role="status"></div>
-                <p>Analizando constelaciones...</p>
+        @if (_estadistica == null)
+        { 
+            <div class="contenedor-prediccion">
+                <p class="texto-prediccion mt-3">
+                    Analizando constelaciones...
+                </p>
             </div>
         }
         else
@@ -25,29 +27,48 @@
             <div class="card-stats mb-4">
                 <div class="stat-item">
                     <span class="stat-label">TOTAL</span>
-                    <span class="stat-value">@_stats.TotalConsultas</span>
+                    <span class="stat-value">@_estadistica.TotalConsultas</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-label">GÉNERO TOP</span>
+                    <span class="stat-value text-uppercase">@_generoDominante</span>
                 </div>
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <span class="stat-label">SIGNO REY</span>
-                    <span class="stat-value text-uppercase">@_stats.SignoFavorito</span>
+                    <span class="stat-value text-uppercase">@_estadistica.SignoFavorito</span>
                 </div>
             </div>
 
-            <h5 class="titulo-seccion mb-3">Ranking de Popularidad</h5>
+            <h5 class="titulo-seccion mb-3">Distribución por Género</h5>
+            <div class="ranking-contenedor mb-4">
+                @foreach (var genero in _estadisticaGenero)
+                {
+                    <div class="fila-ranking">
+                        <div class="info-izq">
+                            <i class="bi @(genero.Key == "Masculino" ? "bi-gender-male" : "bi-gender-female") mr-2"></i>
+                            <span class="nombre-signo">@genero.Key - <span class="votos-resaltados">@genero.Value</span></span>
+                        </div>
+                        <div class="barra-progreso-contenedor">
+                            <div class="barra-llenado genero-bar" style="width: @(CalcularPorcentaje(genero.Value))%;"></div>
+                        </div>
+                    </div>
+                }
+            </div>
 
+            <h5 class="titulo-seccion mb-3">Ranking de Popularidad</h5>
             <div class="ranking-contenedor">
                 @foreach (var ranking in _rankingSignos)
                 {
                     <div class="fila-ranking">
-                        <div class="info-ranking">
+                        <div class="info-izq">
                             <img src="images/boton_@(ranking.Key.ToLower()).png" class="mini-signo" alt="@ranking.Key" />
-                            <span class="nombre-signo">@ranking.Key</span>
+                            <span class="nombre-signo">@ranking.Key - <span class="votos-resaltados">@ranking.Value</span></span>
                         </div>
                         <div class="barra-progreso-contenedor">
                             <div class="barra-llenado" style="width: @(CalcularPorcentaje(ranking.Value))%;"></div>
                         </div>
-                        <span class="cantidad-votos">@ranking.Value</span>
                     </div>
                 }
             </div>
@@ -56,22 +77,31 @@
 </div>
 
 @code {
-    private Estadistica? _stats;
+    private Estadistica? _estadistica;
     private Dictionary<string, int> _rankingSignos = new();
+    private Dictionary<string, int> _estadisticaGenero = new();
+    private string _generoDominante = "N/A";
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            _stats = await _http.GetFromJsonAsync<Estadistica>("api/horoscopo/estadisticas");
+            _estadistica = await _http.GetFromJsonAsync<Estadistica>("api/horoscopo/estadisticas");
     
-            if (_stats?.Historial != null)
+            if (_estadistica?.Historial != null)
             {
-                // Agrupamos para el ranking
-                _rankingSignos = _stats.Historial
+                _rankingSignos = _estadistica.Historial
                     .GroupBy(h => h.Signo)
                     .OrderByDescending(g => g.Count())
                     .ToDictionary(g => g.Key, g => g.Count()); 
+
+                _estadisticaGenero = _estadistica.Historial
+                .Where(h => !string.IsNullOrEmpty(h.Genero))
+                .GroupBy(h => h.Genero)
+                .OrderByDescending(g => g.Count())
+                .ToDictionary(g => g.Key!, g => g.Count());
+
+                _generoDominante = _estadisticaGenero.FirstOrDefault().Key ?? "N/A";
             }
         }
         catch (Exception ex)
@@ -82,7 +112,7 @@
 
     private double CalcularPorcentaje(int cantidad)
     {
-        if (_stats == null || _stats.TotalConsultas == 0) return 0;
-        return (double)cantidad / _stats.TotalConsultas * 100;
+        if (_estadistica == null || _estadistica.TotalConsultas == 0) return 0;
+        return (double)cantidad / _estadistica.TotalConsultas * 100;
     }
 }

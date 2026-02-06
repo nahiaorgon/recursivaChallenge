@@ -24,7 +24,7 @@
         <h3 class="titulo-ingresa">INGRESA TUS DATOS</h3>
         </div>
 
-        <EditForm Model="@Estado" OnValidSubmit="ProcesarFormulario" OnInvalidSubmit="Validador" class="formulario-datos">
+        <EditForm Model="@Estado" OnSubmit="ManejadorValidacion" class="formulario-datos">
             <DataAnnotationsValidator />
 
             <div class="grupo-campos">
@@ -75,29 +75,32 @@
 
     private void OcultarError() => _mostrarError = false;
 
-    private void ProcesarFormulario()
+    private async Task ManejadorValidacion(EditContext editContext)
     {
-        _mostrarError = false;
-        _navigationManager.NavigateTo("/resultado");
-    }
+        bool formularioBaseValido = editContext.Validate();
 
-    private void Validador()
-    {
-        if (string.IsNullOrWhiteSpace(Estado.Nombre) 
-        || Estado.FechaNacimiento == null)
+        if (!formularioBaseValido || string.IsNullOrWhiteSpace(Estado.Nombre) || Estado.FechaNacimiento == null)
         {
-            _mensajeError = "Por favor, completa tu nombre y/o fecha de nacimiento.";
+            _mensajeError = "Por favor, completa todos los campos correctamente.";
+            _mostrarError = true;
+            return;
+        }
+
+        if (Estado.FechaNacimiento.Value.Year < 1900)
+        {
+            _mensajeError = "El año debe ser mayor a 1900.";
             _mostrarError = true;
             return;
         }
 
         if (Estado.FechaNacimiento > DateTime.Today)
         {
-            _mensajeError = "La fecha de nacimiento no puede ser mayor a hoy.";
+            _mensajeError = "La fecha no puede ser mayor a hoy.";
             _mostrarError = true;
             return;
         }
 
-        ProcesarFormulario();
+        _mostrarError = false;
+        _navigationManager.NavigateTo("/resultado");
     }
 }

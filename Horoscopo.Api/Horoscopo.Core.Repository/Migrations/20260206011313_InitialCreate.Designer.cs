@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Horoscopo.Core.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260205050809_InitialCreate")]
+    [Migration("20260206011313_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -39,6 +39,10 @@ namespace Horoscopo.Core.Repository.Migrations
 
                     b.Property<DateTime>("FechaConsulta")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Genero")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

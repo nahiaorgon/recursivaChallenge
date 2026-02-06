@@ -15,10 +15,10 @@
 
     <div class="contenido-ajustado">
         @if (cargando)
-        {
-            <div class="spinner-container">
-                <div class="spinner-border text-primary" role="status"></div>
-                <p class="mt-3">Consultando los astros para @Estado.Nombre...</p>
+        { 
+            <div class="contenedor-prediccion">
+                <p class="texto-prediccion mt-3">Consultando los astros para @Estado.Nombre...
+                </p>
             </div>
         }
         else if (error || _horoscopo is null)

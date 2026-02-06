@@ -87,6 +87,7 @@ namespace Horoscopo.Services
                 Nombre = registro.Nombre,
                 Email = registro.Email,
                 Signo = signo,
+                Genero = registro.Genero,
                 FechaConsulta = DateTime.Now
             };
 

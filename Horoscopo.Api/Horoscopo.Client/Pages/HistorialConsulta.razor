@@ -5,7 +5,7 @@
 
 <div class="pantalla-contenedor">
     <div class="header-azul">
-        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/")'>
+        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/resultado")'>
             <i class="bi bi-arrow-left"></i> <span>←</span>
         </button>
         <span class="header-titulo">Historial de Consultas</span>
@@ -13,10 +13,11 @@
 
     <div class="contenido-historial">
         @if (_listaHistorial == null)
-        {
-            <div class="text-center mt-5">
-                <div class="spinner-border text-primary" role="status"></div>
-                <p>Cargando historial...</p>
+        { 
+            <div class="contenedor-prediccion">
+                <p class="texto-prediccion mt-3">
+                    Cargando historial...
+                </p>
             </div>
         }
         else if (!_listaHistorial.Any())
@@ -34,7 +35,8 @@
                         </div>
                         <div class="info-consulta">
                             <span class="nombre-usuario">@item.Nombre</span>
-                            <span class="detalle-signo">@item.Signo - @(string.IsNullOrEmpty(item.Email)? "No ingreso correo" : item.Email)</span>
+                            <span class="nombre-usuario">@(string.IsNullOrEmpty(item.Email) ? "No ingreso correo" : item.Email) </span>
+                            <span class="detalle-signo">@item.Signo - @item.Genero</span>
                             <span class="fecha-consulta">@item.FechaConsulta.ToString("dd/MM/yyyy HH:mm")</span>
                         </div>
                     </div>

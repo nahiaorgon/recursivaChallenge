@@ -20,6 +20,7 @@ namespace Horoscopo.Core.Repository.Migrations
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Signo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Genero = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaConsulta = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
