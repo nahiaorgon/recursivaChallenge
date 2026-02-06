@@ -62,18 +62,18 @@ namespace Horoscopo.Services
 
             return mes switch
             {
-                1 => dia <= 20 ? "Capricornio" : "Acuario",
-                2 => dia <= 19 ? "Acuario" : "Piscis",
-                3 => dia <= 20 ? "Piscis" : "Aries",
-                4 => dia <= 20 ? "Aries" : "Tauro",
-                5 => dia <= 21 ? "Tauro" : "Géminis",
-                6 => dia <= 21 ? "Géminis" : "Cáncer",
-                7 => dia <= 23 ? "Cáncer" : "Leo",
+                1 => dia <= 20 ? "Capricorn" : "Aquarius",
+                2 => dia <= 19 ? "Aquarius" : "Pisces",
+                3 => dia <= 20 ? "Pisces" : "Aries",
+                4 => dia <= 20 ? "Aries" : "Taurus",
+                5 => dia <= 21 ? "Taurus" : "Gemini",
+                6 => dia <= 21 ? "Gemini" : "Cancer",
+                7 => dia <= 23 ? "Cancer" : "Leo",
                 8 => dia <= 23 ? "Leo" : "Virgo",
                 9 => dia <= 23 ? "Virgo" : "Libra",
-                10 => dia <= 23 ? "Libra" : "Escorpio",
-                11 => dia <= 22 ? "Escorpio" : "Sagitario",
-                12 => dia <= 21 ? "Sagitario" : "Capricornio",
+                10 => dia <= 23 ? "Libra" : "Scorpio",
+                11 => dia <= 22 ? "Scorpio" : "Sagittarius",
+                12 => dia <= 21 ? "Sagittarius" : "Capricorn",
                 _ => "Desconocido"
             };
         }
