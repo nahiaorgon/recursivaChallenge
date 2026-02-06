@@ -33,7 +33,7 @@ namespace Horoscopo.Api.Controllers
             return Ok(historial);
         }
 
-        [HttpGet("estadistica/signos")]
+        [HttpGet("estadisticas")]
         public async Task<IActionResult> GetSignoMasBuscado()
         {
             var signo = await _signoService.ObtenerEstadisticasSignoAsync();
