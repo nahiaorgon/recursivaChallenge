@@ -34,7 +34,7 @@
         {
             
             <div class="bloque-signo mb-4">
-                <img src="images/boton_@(_horoscopo.Signo.ToLower().Replace("é", "e").Replace("á", "a").Replace("í", "i").Replace("ó", "o").Replace("ú", "u")).png"
+                <img src="images/boton_@(_horoscopo.Signo.ToLower()).png"
                      class="img-signo-decor"
                      alt="Signo @_horoscopo.Signo" />
             </div>
@@ -55,19 +55,30 @@
                 </div>
             </div>
 
-            <div class="boton-contenedor mt-4" style="margin-top:60px !important;">
-                <button  class="btn-naranja-redondeado" @onclick='() => _navigationManager.NavigateTo("/")'>
-                    INICIO
-                </button>
-                <div class="separador-botones d-flex flex-row gap-3 justify-content-center">
-                    <button class="btn-naranja-suave" @onclick='() => _navigationManager.NavigateTo("/historial")'>
-                        VER HISTORIAL
-                    </button>
-                    <button class="btn-naranja-suave" @onclick='() => _navigationManager.NavigateTo("/estadisticas")'>
-                        VER ESTADÍSTICAS
-                    </button>
-                </div>
-            </div>
+          <div class="boton-contenedor" style="margin-top: 60px !important; padding-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+    
+    <button class="btn-naranja-redondeado" 
+            style="width: 220px; padding: 12px; height: auto; display: block;" 
+            @onclick='() => _navigationManager.NavigateTo("/")'>
+        INICIO
+    </button>
+
+    <div class="d-flex flex-row gap-2 justify-content-center" style="width: 100%; flex-wrap: wrap;">
+        
+        <button class="btn-naranja-suave" 
+                style="padding: 10px 15px; min-width: 140px; font-size: 0.8rem; height: auto;" 
+                @onclick='() => _navigationManager.NavigateTo("/historial")'>
+            VER HISTORIAL
+        </button>
+
+        <button class="btn-naranja-suave" 
+                style="padding: 10px 15px; min-width: 140px; font-size: 0.8rem; height: auto;" 
+                @onclick='() => _navigationManager.NavigateTo("/estadisticas")'>
+            VER ESTADÍSTICAS
+        </button>
+        
+    </div>
+</div>
         }
     </div>
 </div>

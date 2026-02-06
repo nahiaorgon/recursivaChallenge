@@ -48,7 +48,9 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();  
-}
+} 
+
+app.UseStaticFiles();
 
 app.UseCors("PermitirBlazor");
 
@@ -57,5 +59,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();

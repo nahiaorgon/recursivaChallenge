@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Horoscopo.Core.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260206011313_InitialCreate")]
+    [Migration("20260206024135_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
