@@ -78,7 +78,7 @@
     private Horoscopo? _horoscopo;
 
     protected override async Task OnInitializedAsync()
-    {
+    {  
         try
         {
             var response = await Http.PostAsJsonAsync("api/horoscopo/consultar", Estado);
@@ -86,6 +86,7 @@
             if (response.IsSuccessStatusCode)
             {
                 _horoscopo = await response.Content.ReadFromJsonAsync<Horoscopo>();
+                Estado.RegistroConsultado = true;
             }
             else
             {

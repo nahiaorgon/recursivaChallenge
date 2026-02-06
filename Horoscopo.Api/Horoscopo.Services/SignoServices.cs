@@ -80,22 +80,25 @@ namespace Horoscopo.Services
         public async Task<Core.Entities.Horoscopo> ProcesarConsultaCompletaAsync(Registro registro)
         {
             string signo = ObtenerSignoZodiacal(registro.FechaNacimiento.Value);
-            int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento.Value);  
+            int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento.Value);
 
-            var historial = new Historial
-            {
-                Nombre = registro.Nombre,
-                Email = registro.Email,
-                Signo = signo,
-                Genero = registro.Genero,
-                FechaConsulta = DateTime.Now
-            };
+            if (!registro.RegistroConsultado)
+            { 
+                var historial = new Historial
+                {
+                    Nombre = registro.Nombre,
+                    Email = registro.Email,
+                    Signo = signo,
+                    Genero = registro.Genero,
+                    FechaConsulta = DateTime.Now
+                };
 
-            bool guardado = await _signoBusiness.HistorialGuardarAsync(historial);
+                bool guardado = await _signoBusiness.HistorialGuardarAsync(historial);
 
-            if (guardado)
-            {
-                //Aca pondria un log para saber si se esta guardando o no mis consultas.
+                if (guardado)
+                {
+                    //Aca pondria un log para saber si se esta guardando o no mis consultas.
+                }
             }
 
             string relato = await ObtenerHoroscopoAsync(signo);

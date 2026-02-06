@@ -11,5 +11,7 @@ namespace Horoscopo.Core.Entities
 
         [Required(ErrorMessage = "La fecha es obligatoria")]
         public DateTime? FechaNacimiento { get; set; } = null;
-    }
+
+        public bool RegistroConsultado { get; set; } = false;
+}
 }

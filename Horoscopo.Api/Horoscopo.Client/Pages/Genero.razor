@@ -65,6 +65,8 @@
     {
         if (!string.IsNullOrEmpty(Estado.Genero))
         {
+            Estado.RegistroConsultado = false;
+
             _navigationManager.NavigateTo("/registro");
         }
         else
