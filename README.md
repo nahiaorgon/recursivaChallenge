@@ -10,7 +10,7 @@ Proyecto desarrollado con **.NET 10**, combinando **ASP.NET Core API** (backend)
 
 ## 🚀 Configuración de la Base de Datos
 
-Para inicializar la persistencia de datos, tienes que ejecutar las migraciones de Entity Framework. 
+Para inicializar la persistencia de datos, se necesitan ejecutar las migraciones de Entity Framework. 
 
 Es muy importante ejecutar estos comandos desde la **carpeta raíz de la solución** para que las referencias a los proyectos sean correctas.
 
