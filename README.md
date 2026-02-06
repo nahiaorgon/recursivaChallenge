@@ -19,9 +19,11 @@ Genera el código necesario para crear las tablas de `Historial` y `Estadística
 
 Paso 1:
 dotnet ef migrations add InitialCreate --project Horoscopo.Core.Repository --startup-project Horoscopo.Api
+<img width="1446" height="156" alt="Captura de pantalla 2026-02-05 220412" src="https://github.com/user-attachments/assets/032c4b45-c4ad-4c4b-812c-c6189bad51e4" />
 
 Paso 2:
 dotnet ef database update --project Horoscopo.Core.Repository --startup-project Horoscopo.Api
+<img width="1273" height="88" alt="Captura de pantalla 2026-02-05 220502" src="https://github.com/user-attachments/assets/c7e9c150-71f7-4bf0-a9eb-06bced4be443" />
 
 ## Y listo :) ya podes obtener datos sobre tu horoscopo!!
 
