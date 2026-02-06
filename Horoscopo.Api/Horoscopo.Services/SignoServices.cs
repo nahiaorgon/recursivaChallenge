@@ -25,7 +25,7 @@ namespace Horoscopo.Services
             var body = new
             {
                 date = DateTime.UtcNow.ToString("yyyy-MM-dd"), 
-                lang = "es", // Idioma español 
+                lang = "es", 
                 sign = signo
             };
 
@@ -82,8 +82,6 @@ namespace Horoscopo.Services
             string signo = ObtenerSignoZodiacal(registro.FechaNacimiento.Value);
             int diasParaCumple = CalcularDiasProximoCumple(registro.FechaNacimiento.Value);  
 
-            string relato = await ObtenerHoroscopoAsync(signo);
-
             var historial = new Historial
             {
                 Nombre = registro.Nombre,
@@ -94,10 +92,15 @@ namespace Horoscopo.Services
 
             bool guardado = await _signoBusiness.HistorialGuardarAsync(historial);
 
-            return new Horoscopo.Core.Entities.Horoscopo
+            if (guardado)
             {
-                //Nombre = registro.Nombre,
-               // Mensaje = $"Hola {registro.Nombre}",
+                //Aca pondria un log para saber si se esta guardando o no mis consultas.
+            }
+
+            string relato = await ObtenerHoroscopoAsync(signo);
+
+            return new Core.Entities.Horoscopo
+            { 
                 Signo = signo,
                 Prediccion = relato,
                 DiasParaCumple = diasParaCumple

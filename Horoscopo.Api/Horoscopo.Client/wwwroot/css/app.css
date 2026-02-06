@@ -407,3 +407,64 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     transition: opacity 0.3s ease;
 }
 /*fin - registro*/
+
+
+/*fin - resultado*/
+
+.bloque-cumple {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.hola-usuario {
+    text-align: center;
+    width: 100%;
+}
+
+.bloque-signo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.img-signo-decor { 
+    object-fit: contain;
+    display: block;
+    margin-left: 0;
+    margin-right: auto;
+    padding-left: 10px;
+}
+
+.img-icono-api {
+    width: 40px;
+    height: 40px;
+    opacity: 0.8;
+}
+
+.texto-signo-nombre {
+    color: #ff4d6d; 
+    font-weight: 900;
+    font-size: 2.8rem;
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.contenedor-prediccion {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    margin: 20px 0;
+}
+
+.texto-prediccion {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+}
+/*fin - resultado*/
+
