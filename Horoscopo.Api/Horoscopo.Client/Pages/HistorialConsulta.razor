@@ -1,41 +1,40 @@
 ﻿@page "/historial"
 @using Horoscopo.Core.Entities
-@inject HttpClient Http
-@inject NavigationManager Nav
+@inject HttpClient _http
+@inject NavigationManager _navigationManager
 
 <div class="pantalla-contenedor">
     <div class="header-azul">
-        <button class="btn-circular-volver" @onclick='() => Nav.NavigateTo("/")'>
-            <span class="oi oi-arrow-left"></span>
+        <button class="btn-volver-circular" @onclick='() => _navigationManager.NavigateTo("/")'>
+            <i class="bi bi-arrow-left"></i> <span>←</span>
         </button>
         <span class="header-titulo">Historial de Consultas</span>
     </div>
 
     <div class="contenido-historial">
-        @if (listaHistorial == null)
+        @if (_listaHistorial == null)
         {
             <div class="text-center mt-5">
                 <div class="spinner-border text-primary" role="status"></div>
                 <p>Cargando historial...</p>
             </div>
         }
-        else if (!listaHistorial.Any())
+        else if (!_listaHistorial.Any())
         {
             <p class="text-center mt-5">No hay consultas registradas aún.</p>
         }
         else
         {
             <div class="listado-cards">
-                @foreach (var item in listaHistorial)
+                @foreach (var item in _listaHistorial)
                 {
                     <div class="card-consulta">
                         <div class="icono-signo-contenedor">
-                            @* Reutilizamos tus imágenes boton_signo.png *@
                             <img src="images/boton_@(item.Signo.ToLower()).png" alt="@item.Signo" />
                         </div>
                         <div class="info-consulta">
                             <span class="nombre-usuario">@item.Nombre</span>
-                            <span class="detalle-signo">@item.Signo - @item.Email</span>
+                            <span class="detalle-signo">@item.Signo - @(string.IsNullOrEmpty(item.Email)? "No ingreso correo" : item.Email)</span>
                             <span class="fecha-consulta">@item.FechaConsulta.ToString("dd/MM/yyyy HH:mm")</span>
                         </div>
                     </div>
@@ -44,90 +43,16 @@
         }
     </div>
 </div>
-
-<style>
-    .pantalla-contenedor {
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        background: #F4F7F9;
-    }
-
-    .header-azul {
-        background-color: #1a5a96;
-        color: white;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-    }
-
-    .contenido-historial {
-        flex-grow: 1;
-        padding: 20px;
-        overflow-y: auto;
-    }
-
-    .card-consulta {
-        background: white;
-        border-radius: 12px;
-        padding: 15px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        border-left: 5px solid #fe6d1a; /* El naranja de tus botones */
-    }
-
-    .icono-signo-contenedor img {
-        width: 45px;
-        height: 45px;
-        margin-right: 15px;
-    }
-
-    .info-consulta {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .nombre-usuario {
-        font-weight: bold;
-        color: #333;
-        font-size: 1rem;
-    }
-
-    .detalle-signo {
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    .fecha-consulta {
-        color: #999;
-        font-size: 0.8rem;
-        margin-top: 4px;
-    }
-
-    .btn-circular-volver {
-        position: absolute;
-        left: 15px;
-        background: rgba(255,255,255,0.2);
-        border: none;
-        color: white;
-        border-radius: 50%;
-        width: 32px;
-        height: 32px;
-    }
-</style>
+ 
 
 @code {
-    private List<Historial>? listaHistorial;
+    private List<Historial>? _listaHistorial;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            listaHistorial = await Http.GetFromJsonAsync<List<Historial>>("api/horoscopo/historial");
+            _listaHistorial = await _http.GetFromJsonAsync<List<Historial>>("api/horoscopo/historial");
         }
         catch (Exception ex)
         {

@@ -196,8 +196,7 @@ code {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: center; 
     padding: 40px 20px 60px 20px;
 }
 
@@ -467,4 +466,86 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     font-style: italic;
 }
 /*fin - resultado*/
+
+/*inicio - historial*/
+
+
+.pantalla-contenedor {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: #F4F7F9;
+}
+
+.header-azul {
+    background-color: #1a5a96;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.contenido-historial {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.card-consulta {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-left: 5px solid #fe6d1a;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.icono-signo-contenedor img {
+    height: 45px;
+}
+
+.info-consulta {
+ display: flex;
+    flex-direction: column;
+    min-width: 0; 
+    flex-grow: 1;
+}
+
+.nombre-usuario {
+    display: block;
+    word-wrap: break-word; 
+    overflow-wrap: break-word;
+    white-space: normal; 
+    max-width: 100%;
+}
+
+.detalle-signo {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.fecha-consulta {
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.btn-circular-volver {
+    position: absolute;
+    left: 15px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+/*fin - historial*/
 
