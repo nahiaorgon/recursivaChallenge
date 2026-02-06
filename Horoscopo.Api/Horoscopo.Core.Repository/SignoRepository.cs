@@ -19,17 +19,27 @@ namespace Horoscopo.Core.Repository
 
                 return filasAfectadas > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine($"SignoRepository > HistorialGuardarAsync > {ex.Message}");
                 return false;
             }
         }
 
         public async Task<List<Historial>> HistorialObtenerAsync()
         {
-            return await _context.Historiales
+            try
+            {
+                return await _context.Historiales
                 .OrderByDescending(h => h.FechaConsulta)
                 .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SignoRepository > HistorialObtenerAsync > {ex.Message}");
+                return new List<Historial>();
+            }
+           
         }
     }
 }
